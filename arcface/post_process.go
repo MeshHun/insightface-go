@@ -8,11 +8,12 @@ import (
 )
 
 const (
-	nms_thresh = float32(0.4)
-	det_thresh = float32(0.5)
+
 )
 
 var (
+	nms_thresh = float32(0.4)
+	det_thresh = float32(0.5)
 	// len(outputs)==9
 	_fmc = 3
 	_feat_stride_fpn = []int{8, 16, 32}

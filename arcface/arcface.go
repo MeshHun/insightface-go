@@ -3,7 +3,6 @@ package arcface
 
 import (
 	"fmt"
-	// "errors"
 	"path/filepath"
 	"image"
 
@@ -57,10 +56,10 @@ var (
 )
 
 // 初始化ONNX运行时环境（全局仅需调用一次）
-func initORT(lib_path string) error {
+func initORT() error {
 	// 设置ONNX Runtime共享库路径（根据系统类型调整）
 	// 例如: Windows使用"onnxruntime.dll"，Linux使用"libonnxruntime.so"
-	ort.SetSharedLibraryPath(filepath.Join(lib_path))
+	ort.SetSharedLibraryPath("./arcface/onnxruntime.dll")
 	
 	if err := ort.InitializeEnvironment(ort.WithLogLevelError()); err != nil {
 		return err
@@ -70,8 +69,8 @@ func initORT(lib_path string) error {
 
 // Load onnx model from infightface, based on "buffalo_l" (det_10g.onnx, w600k_r50.onnx).
 // onnxmodel_path is the path way to onnx models.
-func LoadOnnxModel(onnxmodel_path string, lib_path string) (*ModelSessions ,error) {
-	if err := initORT(lib_path); err != nil {
+func LoadOnnxModel(onnxmodel_path string) (*ModelSessions ,error) {
+	if err := initORT(); err != nil {
 		return nil, fmt.Errorf("error initializing ORT environment: %w", err)
 	}
 	detModelPath := filepath.Join(onnxmodel_path, "det_10g.onnx")
