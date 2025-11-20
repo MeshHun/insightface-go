@@ -7,7 +7,7 @@ Based on [Arcface-go](https://github.com/jack139/arcface-go),Change the onnxrunt
 ## Prerequisites
 
 - The onnx-format models used in the code is [&#34;**buffalo_l**&#34;](https://insightface.cn-sh2.ufileos.com/models/buffalo_l.zip) from [insightface](https://github.com/deepinsight/insightface/tree/master/model_zoo).
-- [ONNX Runtime-GO](https://github.com/yalue/onnxruntime_go) Visit this repo,learn how to deploy onnxruntime with your own requirement (like Windows/Linux/Macos|Cuda/Openvino/Rocm/Coreml...).In this repo,it has been provided the dependencies needed for DirectML acceleration on the Windows platform.If you need Hardware acceleration in your platform.You must prepare lib files and edit the file  . /arcface/arcface.go  in line 62.
+- [ONNX Runtime-GO](https://github.com/yalue/onnxruntime_go) Visit this repo,learn how to deploy onnxruntime with your own requirement (like Windows/Linux/Macos|Cuda/Openvino/Rocm/Coreml...).In my repo,it has been provided the dependencies needed for DirectML acceleration on the Windows platform.If you need Hardware acceleration in your ouw platform.You must prepare lib files and edit the file  . /arcface/arcface.go  in line 62.
 - [GOCV](https://gocv.io/) is required, because some codes borrowed from gocv to implement EstimateAffinePartial2DWithParams().
 
 ## Run example
