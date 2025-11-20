@@ -2,7 +2,7 @@
 
 Go implementation of Arcface inference.
 
-Based on [Arcface-go](https://github.com/jack139/arcface-go),Change the onnxruntime-go&gocv repo.
+Based on [Arcface-go](https://github.com/jack139/arcface-go),replace the onnxruntime-go&gocv repo.
 
 ## Prerequisites
 
