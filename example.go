@@ -1,3 +1,4 @@
+//Example1
 package main
 
 import (
@@ -93,3 +94,47 @@ func main() {
 
 	log.Println("features: ", features)
 }
+
+// Example2
+// package main
+
+// import (
+// 	"arcface-go/arcface"
+// 	"log"
+
+// 	"github.com/disintegration/imaging"
+// )
+
+// func main() {
+// 	// 1. 初始化引擎
+// 	config := arcface.Config{
+// 		ModelPath:      "./buffalo_l",
+// 		DetectThreshold: 0.6, // 提高检测阈值
+// 	}
+// 	engine, err := arcface.NewFaceEngine(config)
+// 	if err != nil {
+// 		log.Fatal("初始化引擎失败：", err)
+// 	}
+// 	defer engine.Close() // 确保资源释放
+
+// 	// 2. 加载图片
+// 	img, err := imaging.Open("test.jpg")
+// 	if err != nil {
+// 		log.Fatal("加载图片失败：", err)
+// 	}
+
+// 	// 3. 处理（检测+提取特征）
+// 	faces, err := engine.Get(img)
+// 	if err != nil {
+// 		log.Fatal("处理图片失败：", err)
+// 	}
+
+// 	// 4. 输出结果
+// 	log.Printf("检测到 %d 张人脸\n", len(faces))
+// 	for i, face := range faces {
+// 		log.Printf("  人脸 %d：\n", i)
+// 		log.Printf("  检测框：%v\n", face.BoundingBox)
+// 		log.Printf("  置信度：%.2f\n", face.Score)
+// 		log.Printf("  特征向量长度：%v\n", (face.Features[:10]))     //由于使用内存指针，导致所有特征向量指向同一块内存。
+// 	}
+// }

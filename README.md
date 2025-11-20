@@ -1,16 +1,14 @@
-# Arcface-go
+# Insightface-go
 
-Go implementation of Arcface inference
+Go implementation of Arcface inference.
 
-
+Based on [Arcface-go](https://github.com/jack139/arcface-go),Change the onnxruntime-go&gocv repo.
 
 ## Prerequisites
 
-- The onnx-format models used in the code is ["**buffalo_l**"](https://insightface.cn-sh2.ufileos.com/models/buffalo_l.zip) from [insightface](https://github.com/deepinsight/insightface/tree/master/model_zoo).
-- [ONNX Runtime](https://github.com/microsoft/onnxruntime) (v1.12.1 in my environment) is required.
-- [OpenCV](https://github.com/opencv/opencv) (v4.5.5 in my environment) is required, because some codes borrowed from [gocv](https://github.com/hybridgroup/gocv) to implement EstimateAffinePartial2DWithParams().
-
-
+- The onnx-format models used in the code is [&#34;**buffalo_l**&#34;](https://insightface.cn-sh2.ufileos.com/models/buffalo_l.zip) from [insightface](https://github.com/deepinsight/insightface/tree/master/model_zoo).
+- [ONNX Runtime-GO](https://github.com/yalue/onnxruntime_go) Visit this repo,learn how to deploy onnxruntime with your own requirement (like Windows/Linux/Macos|Cuda/Openvino/Rocm/Coreml...).In this repo,it has been provided the dependencies needed for DirectML acceleration on the Windows platform.If you need Hardware acceleration in your platform.You must prepare lib files and edit the file  . /arcface/arcface.go  in line 62.
+- [GOCV](https://gocv.io/) is required, because some codes borrowed from gocv to implement EstimateAffinePartial2DWithParams().
 
 ## Run example
 
@@ -20,10 +18,4 @@ The example is too simple, detect faces in the input image and retrieve features
 go run example.go
 ```
 
-- If your ```onnxruntime``` and ```opencv``` is not installed in ```/usr/local```, some paths in CGO flags and ```LD_LIARARY_PATH``` should be corrected (CGO_CPPFLAGS="-I/path/to/include/opencv4" LD_LIBRARY_PATH=/path/to/lib ).
-- path to "**buffalo_l**" should be corrected in ```example.go``` .
-
-
-
-## Sample API
-[arcface-go-api](https://github.com/jack139/arcface-go-api)
+- path to "**buffalo_l**" should be corrected in ``example.go`` .

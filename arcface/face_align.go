@@ -10,11 +10,11 @@ import (
 var (
 	// arcface matrix from insightface/utils/face_align.py
 	arcface_src = []gocv.Point2f{
-	   {38.2946, 51.6963},
-       {73.5318, 51.5014},
-       {56.0252, 71.7366},
-       {41.5493, 92.3655},
-       {70.7299, 92.2041},
+	   {X:38.2946, Y:51.6963},
+       {X:73.5318, Y:51.5014},
+       {X:56.0252, Y:71.7366},
+       {X:41.5493, Y:92.3655},
+       {X:70.7299, Y:92.2041},
    }
 )
 
@@ -54,7 +54,7 @@ func norm_crop(srcImage image.Image, lmk []float32) (image.Image, error) {
 func estimate_norm(lmk []float32) gocv.Mat {
 	dst := make([]gocv.Point2f, 5)
 	for i:=0;i<5;i++ {
-		dst[i] = gocv.Point2f{lmk[i*2], lmk[i*2+1]}
+		dst[i] = gocv.Point2f{X:lmk[i*2], Y:lmk[i*2+1]}
 	}
 
 	pvsrc := gocv.NewPoint2fVectorFromPoints(arcface_src)

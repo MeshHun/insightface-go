@@ -109,7 +109,7 @@ func (e *FaceEngine) ExtractFeatures(img image.Image, face *Face) error {
 }
 
 // 封装接口 检测人脸并提取所有特征
-func (e *FaceEngine) get(img image.Image) ([]Face, error) {
+func (e *FaceEngine) Get(img image.Image) ([]Face, error) {
 	faces, err := e.Detect(img)
 	if err != nil {
 		return nil, err

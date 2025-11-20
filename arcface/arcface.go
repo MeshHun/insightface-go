@@ -68,12 +68,12 @@ func initORT() error {
 }
 
 // Load onnx model from infightface, based on "buffalo_l" (det_10g.onnx, w600k_r50.onnx).
-// onnxmodel_path is the path way to onnx models.
-func LoadOnnxModel(onnxmodel_path string) (*ModelSessions ,error) {
+// onnxmodel_path_dir is the path way to onnx models.
+func LoadOnnxModel(onnxmodel_path_dir string, ) (*ModelSessions ,error) {
 	if err := initORT(); err != nil {
 		return nil, fmt.Errorf("error initializing ORT environment: %w", err)
 	}
-	detModelPath := filepath.Join(onnxmodel_path, "det_10g.onnx")
+	detModelPath := filepath.Join(onnxmodel_path_dir, "det_10g.onnx")
 	detinputShape := ort.NewShape(1, 3, det_size, det_size)
 	detInput, err := ort.NewEmptyTensor[float32](detinputShape)
 	if err != nil {
@@ -102,6 +102,14 @@ func LoadOnnxModel(onnxmodel_path string) (*ModelSessions ,error) {
 	}
 	defer ortDetSO.Destroy()
 
+	err = ortDetSO.AppendExecutionProviderDirectML(0)
+	if err != nil {
+		detInput.Destroy()
+		for _, tensor := range detOutputs {
+			tensor.Destroy()
+		}
+		return nil, fmt.Errorf("error error specifying provider for det session: %w", err)
+	}
 	//to do add cuda or dml   err=options.AppendExecutionProvider .....
 	// err = options.AppendExecutionProviderCoreML(0)
 	// 	if err != nil {
@@ -139,7 +147,19 @@ func LoadOnnxModel(onnxmodel_path string) (*ModelSessions ,error) {
 		return nil, fmt.Errorf("error creating ORT arc session options: %w", err)
 	}
 	defer ortArcSO.Destroy()
-	arcSession, err := ort.NewAdvancedSession(filepath.Join(onnxmodel_path, "w600k_r50.onnx"), arcInputName, arcOutputName, []ort.Value{arcInput}, []ort.Value{arcOutput}, ortArcSO)
+
+	err = ortArcSO.AppendExecutionProviderDirectML(0)
+	if err != nil {
+		detInput.Destroy()
+		for _, tensor := range detOutputs {
+			tensor.Destroy()
+		}
+		arcInput.Destroy()
+		arcOutput.Destroy()
+		return nil, fmt.Errorf("error error specifying provider for arc session: %w", err)
+	}
+
+	arcSession, err := ort.NewAdvancedSession(filepath.Join(onnxmodel_path_dir, "w600k_r50.onnx"), arcInputName, arcOutputName, []ort.Value{arcInput}, []ort.Value{arcOutput}, ortArcSO)
 	if err != nil {
 		arcInput.Destroy()
 		arcOutput.Destroy()
